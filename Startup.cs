@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Rmz.WeatherForecast.Api.Common.Extends;
 
 namespace Rmz.WeatherForecast.Api
 {
@@ -28,10 +29,9 @@ namespace Rmz.WeatherForecast.Api
         {
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Rmz.WeatherForecast.Api", Version = "v1" });
-            });
+            services.ConfigureCors();
+            services.ConfigurSwagger();
+            services.ConfigurDependencyinjection();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,7 +41,7 @@ namespace Rmz.WeatherForecast.Api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Rmz.WeatherForecast.Api v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "German Weather Information v1"));
             }
 
             app.UseHttpsRedirection();

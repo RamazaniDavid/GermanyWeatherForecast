@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Rmz.WeatherForecast.Api.Models.ConfigModels
 {
-    public class ApiSettings
+    public class ProviderApiConfigs
     {
         public string ApiKey { get; set; }
-        public string ApiUrl { get; set; }
+        public string BaseUrl { get; set; }
     }
 }
