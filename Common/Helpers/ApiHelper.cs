@@ -21,7 +21,7 @@ namespace Rmz.WeatherForecast.Api.Common.Helpers
         {
             using var response = await HttpClientSingleton.Instance.GetAsync(url);
             if (response.IsSuccessStatusCode)
-                return await response.Content.rea<T>();
+                return await response.Content.ReadAsAsync<T>();
 
             throw new Exception(response.ReasonPhrase);
         }

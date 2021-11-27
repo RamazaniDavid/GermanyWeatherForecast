@@ -30,8 +30,9 @@ namespace Rmz.WeatherForecast.Api
 
             services.AddControllers();
             services.ConfigureCors();
-            services.ConfigurSwagger();
-            services.ConfigurDependencyinjection();
+            services.ConfigureSwagger();
+            services.ConfigureDependencyInjection();
+            services.AddCustomOptions(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -32,7 +32,7 @@ namespace Rmz.WeatherForecast.Api.Controllers
         [HttpGet("[action]")]
         public async Task<ActionResult<WeatherInfoDto>> Forecast(string? city,string? zipCode )
         {
-            return _owmProvider.GetByCityName("München").Result;
+            return _owmProvider.Get5DayPerHours("München",null).Result;
         }
     }
 }

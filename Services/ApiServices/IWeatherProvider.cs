@@ -9,19 +9,12 @@ namespace Rmz.WeatherForecast.Api.Services.ApiServices
     public interface IWeatherProvider
     {
         /// <summary>
-        /// Get weather information by city name
+        /// Get weather information by city name or zip code
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="cityName"></param>
+        /// <param name="zipCode"></param>
         /// <returns></returns>
-        Task<WeatherInfoDto> GetByCityName(string cityName);
-
-        /// <summary>
-        /// Get weather information by zip code
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="zipCode">Send your zip code</param>
-        /// <returns></returns>
-        Task<WeatherInfoDto> GetByZipCode(string zipCode);
+        Task<WeatherInfoDto> Get5DayPerHours(string cityName,string zipCode);
+        
     }
 }

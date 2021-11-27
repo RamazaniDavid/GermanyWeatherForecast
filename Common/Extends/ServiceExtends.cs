@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Rmz.WeatherForecast.Api.Models.ConfigModels;
 using Rmz.WeatherForecast.Api.Services.ApiServices;
 using Rmz.WeatherForecast.Api.Services.ApiServices.OpenWeatherMap;
 
@@ -36,7 +38,7 @@ namespace Rmz.WeatherForecast.Api.Common.Extends
         /// Config Swagger
         /// </summary>
         /// <param name="services"></param>
-        public static void ConfigurSwagger(this IServiceCollection services)
+        public static void ConfigureSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(c =>
             {
@@ -46,12 +48,20 @@ namespace Rmz.WeatherForecast.Api.Common.Extends
 
         }
 
-
-        public static void ConfigurDependencyinjection(this IServiceCollection services)
+        /// <summary>
+        /// Configure dependency injection
+        /// </summary>
+        /// <param name="services"></param>
+        public static void ConfigureDependencyInjection(this IServiceCollection services)
         {
             services.AddTransient<IOwmProvider, OwmProvider>();
 
 
+        }
+
+        public static void AddCustomOptions(this IServiceCollection services, IConfiguration configuration)
+        {services.AddOptions<ProviderApiConfigs>()
+                .Bind(configuration.GetSection("ProviderApiConfigs"));
         }
 
     }

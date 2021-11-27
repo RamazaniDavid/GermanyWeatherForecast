@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Rmz.WeatherForecast.Api.Common.Helpers;
@@ -25,22 +28,19 @@ namespace Rmz.WeatherForecast.Api.Services.ApiServices.OpenWeatherMap
 
 
         #region Implementation of IWeatherProvider
-
+        
         /// <inheritdoc />
-        public async Task<WeatherInfoDto> GetByCityName(string cityName)
+        public async Task<WeatherInfoDto> Get5DayPerHours(string cityName,string zipCode )
         {
-            string url = $"http://api.openweathermap.org/data/2.5/forecast?q={cityName},DE&appid=fcadd28326c90c3262054e0e6ca599cd";
-            var res=await ApiHelper.GetAsync<dynamic>(url);
-            var data = new WeatherInfoDto();
 
-            return data;
+            string url =
+                $"{BaseUrl}/forecast?{(!string.IsNullOrEmpty(cityName) ? $"q={cityName}" : "")}{(!string.IsNullOrEmpty(zipCode) && string.IsNullOrEmpty(cityName) ? $"zip={zipCode}" : "")},DE&unit=metric&appid={ApiKey}";
+            var res=await ApiHelper.GetAsync<WeatherInfoDto>(url);
 
-        }
+            
 
-        /// <inheritdoc />
-        public Task<WeatherInfoDto> GetByZipCode(string zipCode)
-        {
-            throw new NotImplementedException();
+            return res;
+            
         }
 
         #endregion
