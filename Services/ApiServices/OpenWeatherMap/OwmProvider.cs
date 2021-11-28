@@ -34,7 +34,7 @@ namespace Rmz.WeatherForecast.Api.Services.ApiServices.OpenWeatherMap
         {
 
             string url =
-                $"{BaseUrl}/forecast?{(!string.IsNullOrEmpty(cityName) ? $"q={cityName}" : "")}{(!string.IsNullOrEmpty(zipCode) && string.IsNullOrEmpty(cityName) ? $"zip={zipCode}" : "")},DE&unit=metric&appid={ApiKey}";
+                $"{BaseUrl}/forecast?{(!string.IsNullOrEmpty(cityName) ? $"q={cityName}" : "")}{(!string.IsNullOrEmpty(zipCode) && string.IsNullOrEmpty(cityName) ? $"zip={zipCode}" : "")},DE&units=metric&appid={ApiKey}";
             var res=await ApiHelper.GetAsync<WeatherInfoDto>(url);
 
             

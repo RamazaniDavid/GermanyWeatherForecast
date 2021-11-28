@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using Newtonsoft.Json;
+using NestedJsonConverter = Rmz.WeatherForecast.Api.Common.Helpers.NestedJsonConverter;
 
 namespace Rmz.WeatherForecast.Api.Models.DomainDtos
 {
-    //[JsonConverter(typeof(JsonPathConverter))]
+    [JsonConverter(typeof(NestedJsonConverter))]
     public class WeatherInfoDto : BaseDto
     {
         [JsonProperty("city.name")]
