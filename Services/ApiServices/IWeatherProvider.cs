@@ -15,6 +15,7 @@ namespace Rmz.WeatherForecast.Api.Services.ApiServices
         /// <param name="zipCode"></param>
         /// <returns></returns>
         Task<WeatherInfoDto> Get5DayPerHours(string cityName,string zipCode);
+        Task<CurrentWeatherInfoDto> GetCurrent(string cityName,string zipCode);
         
     }
 }

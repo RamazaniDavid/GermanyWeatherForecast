@@ -43,6 +43,15 @@ namespace Rmz.WeatherForecast.Api.Services.ApiServices.OpenWeatherMap
             
         }
 
+        /// <inheritdoc />
+        public async Task<CurrentWeatherInfoDto> GetCurrent(string cityName, string zipCode)
+        {
+            string url =
+                $"{BaseUrl}/weather?{(!string.IsNullOrEmpty(cityName) ? $"q={cityName}" : "")}{(!string.IsNullOrEmpty(zipCode) && string.IsNullOrEmpty(cityName) ? $"zip={zipCode}" : "")},DE&units=metric&appid={ApiKey}";
+            var res = await ApiHelper.GetAsync<CurrentWeatherInfoDto>(url);
+            return res;
+        }
+
         #endregion
     }
 }

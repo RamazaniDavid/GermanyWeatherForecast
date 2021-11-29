@@ -32,6 +32,7 @@ namespace Rmz.WeatherForecast.Api
             services.ConfigureCors();
             services.ConfigureSwagger();
             services.ConfigureDependencyInjection();
+            services.ConfigureDbContext(Configuration);
             services.AddCustomOptions(Configuration);
         }
 
@@ -50,6 +51,8 @@ namespace Rmz.WeatherForecast.Api
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors("CorsPolicy");
 
             app.UseEndpoints(endpoints =>
             {

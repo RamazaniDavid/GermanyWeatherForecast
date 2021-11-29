@@ -17,11 +17,14 @@ namespace Rmz.WeatherForecast.Api.Controllers
     public class WeatherController : ControllerBase
     {
         private readonly IOwmProvider _owmProvider;
-       
+
 
         private readonly ILogger<WeatherController> _logger;
 
-
+        static WeatherController()
+        {
+            
+        }
 
         public WeatherController(ILogger<WeatherController> logger, IOwmProvider owmProvider)
         {
@@ -30,9 +33,32 @@ namespace Rmz.WeatherForecast.Api.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<ActionResult<WeatherInfoDto>> Forecast(string? city,string? zipCode )
+        public async Task<ActionResult<WeatherInfoDto>> Forecast(string? city, string? zipCode)
         {
-            return _owmProvider.Get5DayPerHours("München",null).Result;
+            if (string.IsNullOrEmpty(city) && string.IsNullOrEmpty(zipCode))
+            {
+                return BadRequest("Both inputs are not possible to be null");
+            }
+
+            try
+            {
+                return _owmProvider.Get5DayPerHours(city, zipCode).Result;
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<CurrentWeatherInfoDto>> Current(string? city, string? zipCode)
+        {
+            if (string.IsNullOrEmpty(city) && string.IsNullOrEmpty(zipCode))
+            {
+                return BadRequest("Both inputs are not possible to be null");
+            }
+            return _owmProvider.GetCurrent(city, zipCode).Result;
         }
     }
 }

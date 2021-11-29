@@ -19,23 +19,34 @@ namespace Rmz.WeatherForecast.Api.Models.DomainDtos
         /// <summary>
         /// Record time
         /// </summary>
-        public DateTime DateTime => DateTimeOffset.FromUnixTimeSeconds(Unix).DateTime;
+        public DateTime DateTime => DateTimeOffset.FromUnixTimeSeconds(Unix).DateTime
+            //todo: here use static code and add 1 hour to UTC, because it's about germany cities. if you want to correct it dynamically, you can use timezone, or pass UTC to client and show in local timezone
+            .AddHours(1);
 
+        /// <summary>
+        /// Day name
+        /// </summary>
+        public string DayName => DateTime.DayOfWeek.ToString();
+        /// <summary>
+        /// Time
+        /// </summary>
+        public string Time => DateTime.Hour.ToString();
+        
         /// <summary>
         /// Temp in metric system
         /// </summary>
         [JsonProperty("main.temp")]
-        public double TempMet { get; set; }
+        public short TempMet { get; set; }
         /// <summary>
         /// Max temp in metric system
         /// </summary>
         [JsonProperty("main.temp_max")]
-        public double MaxTempMet { get; set; }
+        public short MaxTempMet { get; set; }
         /// <summary>
         /// Min temp in metric system
         /// </summary>
         [JsonProperty("main.temp_min")]
-        public double MinTempMet { get; set; }
+        public short MinTempMet { get; set; }
 
         /// <summary>
         /// Wind speed. meter/sec
@@ -63,6 +74,18 @@ namespace Rmz.WeatherForecast.Api.Models.DomainDtos
         [JsonProperty("weather.#0.icon")]
         public string WeatherIcon { get; set; }
 
+        /// <summary>
+        /// Pressure
+        /// </summary>
+        [JsonProperty("main.pressure")]
+        public double Pressure { get; set; }
+
+        /// <summary>
+        /// Humidity 
+        /// </summary>
+        [JsonProperty("main.humidity")]
+        public double Humidity { get; set; }
+
 
 
         #region Calculated Field
@@ -71,20 +94,20 @@ namespace Rmz.WeatherForecast.Api.Models.DomainDtos
         /// <summary>
         /// Temp in imperial system
         /// </summary>
-        public double TempImp => Temperature.CelciusToFarenheit(TempMet);
+        public short TempImp => (short)Temperature.CelciusToFarenheit(TempMet);
         /// <summary>
         /// Max temp  in imperial system
         /// </summary>
-        public double MaxTempImp => Temperature.CelciusToFarenheit(MaxTempMet);
+        public short MaxTempImp => (short)Temperature.CelciusToFarenheit(MaxTempMet);
         /// <summary>
         /// Min temp in imperial system
         /// </summary>
-        public double MinTempImp => Temperature.CelciusToFarenheit(MinTempMet);
+        public short MinTempImp =>(short)Temperature.CelciusToFarenheit(MinTempMet);
 
         /// <summary>
         /// Wind speed in Imperial system
         /// </summary>
-        public double WindSpeedImp => Speed.MetersPerSecondToMilesPerHour(WindSpeedMet);
+        public double WindSpeedImp => Math.Round(Speed.MetersPerSecondToMilesPerHour(WindSpeedMet),0);
 
         #endregion
 
