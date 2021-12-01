@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Rmz.WeatherForecast.Api.Common.CommonClasses;
 using Rmz.WeatherForecast.Api.Common.Extends;
 
 namespace Rmz.WeatherForecast.Api
@@ -28,12 +29,13 @@ namespace Rmz.WeatherForecast.Api
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
             services.ConfigureCors();
             services.ConfigureSwagger();
             services.ConfigureDependencyInjection();
             services.ConfigureDbContext(Configuration);
             services.AddCustomOptions(Configuration);
+
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

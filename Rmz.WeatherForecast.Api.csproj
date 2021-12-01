@@ -47,4 +47,9 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Common\CommonClasses\Interfaces\" />
+    <Folder Include="Common\Extends\NewFolder\" />
+  </ItemGroup>
+
 </Project>

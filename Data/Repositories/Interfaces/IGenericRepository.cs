@@ -10,6 +10,6 @@ namespace Rmz.WeatherForecast.Api.Data.Repositories.Interfaces
     public interface IGenericRepository<T, KeyType> where T : BaseEntity<KeyType>
     {
         Task<IList<T>> GetAll(Expression<Func<T, bool>> Expr = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>> OrdBy = null);
+            Func<IQueryable<T>, IOrderedQueryable<T>> OrdBy = null,int Limit=0);
     }
 }

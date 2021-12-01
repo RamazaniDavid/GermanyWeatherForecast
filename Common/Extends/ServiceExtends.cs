@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Rmz.WeatherForecast.Api.Data;
+using Rmz.WeatherForecast.Api.Data.Repositories;
+using Rmz.WeatherForecast.Api.Data.Repositories.Interfaces;
 using Rmz.WeatherForecast.Api.Models.ConfigModels;
 using Rmz.WeatherForecast.Api.Services.ApiServices;
 using Rmz.WeatherForecast.Api.Services.ApiServices.OpenWeatherMap;
@@ -69,6 +71,7 @@ namespace Rmz.WeatherForecast.Api.Common.Extends
         public static void ConfigureDependencyInjection(this IServiceCollection services)
         {
             services.AddTransient<IOwmProvider, OwmProvider>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 
         }

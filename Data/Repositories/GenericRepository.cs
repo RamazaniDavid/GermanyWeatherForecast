@@ -9,7 +9,7 @@ using Rmz.WeatherForecast.Api.Data.Repositories.Interfaces;
 
 namespace Rmz.WeatherForecast.Api.Data.Repositories
 {
-    public class GenericRepository<T,KeyType> :IGenericRepository<T,KeyType> where T : BaseEntity<KeyType>
+    public class GenericRepository<T, KeyType> : IGenericRepository<T, KeyType> where T : BaseEntity<KeyType>
     {
         private readonly DatabaseContext _context;
         private readonly DbSet<T> _db;
@@ -23,17 +23,22 @@ namespace Rmz.WeatherForecast.Api.Data.Repositories
         #region Implementation of IGenericRepository<T,KeyType>
 
         /// <inheritdoc />
-        public async Task<IList<T>> GetAll(Expression<Func<T, bool>> Expr = null, Func<IQueryable<T>, IOrderedQueryable<T>> OrdBy = null)
+        public async Task<IList<T>> GetAll(Expression<Func<T, bool>> Expr = null, Func<IQueryable<T>, IOrderedQueryable<T>> OrdBy = null, int Limit = 0)
         {
             IQueryable<T> query = _db;
-            if (Expr!=null)
+            if (Expr != null)
             {
                 query = query.Where(Expr);
             }
 
-            if (OrdBy!=null)
+            if (OrdBy != null)
             {
                 query = OrdBy(query);
+            }
+
+            if (Limit > 0)
+            {
+                query = query.Take(Limit);
             }
             return await query.AsNoTracking().ToListAsync();
         }
