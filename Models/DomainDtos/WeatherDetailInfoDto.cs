@@ -52,7 +52,7 @@ namespace Rmz.WeatherForecast.Api.Models.DomainDtos
         /// Wind speed. meter/sec
         /// </summary>
         [JsonProperty("wind.speed")]
-        public double WindSpeedMet { get; set; }
+        public int WindSpeedMet { get; set; }
 
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace Rmz.WeatherForecast.Api.Models.DomainDtos
         /// <summary>
         /// Wind speed in Imperial system
         /// </summary>
-        public double WindSpeedImp => Math.Round(Speed.MetersPerSecondToMilesPerHour(WindSpeedMet),0);
+        public int WindSpeedImp => (int)Speed.MetersPerSecondToMilesPerHour(WindSpeedMet);
 
         #endregion
 

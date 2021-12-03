@@ -61,7 +61,21 @@ namespace Rmz.WeatherForecast.Api.Controllers
             {
                 return BadRequest("Both inputs are not possible to be null");
             }
-            return _owmProvider.GetCurrent(city, zipCode).Result;
+
+            try
+            {
+                return _owmProvider.GetCurrent(city, zipCode).Result;
+
+            }
+            catch (Exception e)
+            {
+                // todo: Here we should exception helper and manage all exceptions, and it depends on each provider. So it's just sample, and definitely it's not clear code
+                if (e.Message.Contains("Not Found"))
+                {
+                    return NotFound();
+                }
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpGet("[action]")]
